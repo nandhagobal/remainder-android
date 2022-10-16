@@ -7,62 +7,6 @@
     android:orientation="vertical"
     tools:context=".AppActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary">
-
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="24sp"
-            android:textColor="@color/white"
-            android:text="Remainder" />
-
-        <EditText
-            android:id="@+id/searchBar"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:hint="search..."
-            android:maxLines="1"
-            android:visibility="gone"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            >
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:tint="@color/white"
-                android:id="@+id/searchIcon"
-                android:paddingLeft="15dp"
-                android:src="@drawable/ic_search" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:tint="@color/white"
-                android:paddingLeft="15dp"
-                android:src="@drawable/ic_sort" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:tint="@color/white"
-                android:paddingLeft="8dp"
-                android:maxHeight="10dp"
-                android:src="@drawable/ic_menu" />
-
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

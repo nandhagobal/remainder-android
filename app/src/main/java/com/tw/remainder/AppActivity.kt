@@ -15,20 +15,6 @@ class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        setSupportActionBar(binding.toolbar)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        binding.searchIcon.setOnClickListener {
-            if (navController.currentDestination == navController.findDestination(R.id.allRemainderFragment)) {
-                binding.appName.visibility = View.GONE
-                binding.searchBar.visibility = View.VISIBLE
-            } else
-                navController.navigate(HomeFragmentDirections.actionHomeFragmentToAllRemainderFragment())
-        }
         setContentView(binding.root)
     }
 }
