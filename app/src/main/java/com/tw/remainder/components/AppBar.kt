@@ -19,74 +19,92 @@ import com.tw.remainder.theme.RemainderTheme
 fun AppBar(
     enableBack: Boolean = false,
     enableSearch: Boolean = false,
-    onBack: () -> Unit,
-    onSearchClick: () -> Unit
+    onBack: () -> Unit = {},
+    onSearchClick: () -> Unit = {},
+    title: String,
+    doneIcon: Boolean = false
 ) {
     RemainderTheme {
         TopAppBar() {
-            BackHandler(enabled = enableBack) {
-                onBack()
-            }
-            if (enableBack) {
-                IconButton(
-                    onClick = onBack, modifier = Modifier
-                        .height(30.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_back_arrow),
-                        contentDescription = "back"
-                    )
-                }
-            }
-            if (enableSearch) {
-                var searchValue = rememberSaveable { mutableStateOf("") }
-
-                TextField(
-                    value = searchValue.value,
-                    onValueChange = { value -> searchValue.value = value },
-                    modifier = Modifier
-                        .width(200.dp)
-                        .background(Color.Transparent),
-                    placeholder = {
-                        Text(
-                            text = "Search..."
-                        )
-                    }, colors = TextFieldDefaults.textFieldColors(Color.White)
-                )
-            } else {
+            if (enableBack) BackNavigationButton(onBack)
+            if (enableSearch) SearchField()
+            else
                 Text(
-                    text = if (enableBack) "All Remainder" else "Remainder",
+                    text = title,
                     fontSize = 25.sp,
                     color = Color.White,
                     modifier = Modifier.padding(start = 10.dp)
                 )
-            }
-
-            Row(
-                horizontalArrangement = Arrangement.End, modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-            ) {
-                IconButton(onClick = onSearchClick) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_search),
-                        contentDescription = "search"
-                    )
-                }
-                IconButton(onClick = onBack) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_sort),
-                        contentDescription = "sorting"
-                    )
-                }
-                IconButton(onClick = onBack) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_menu),
-                        contentDescription = "menu"
-                    )
-                }
-            }
+            AppBarIcon(onSearchClick, onBack, doneIcon)
 
         }
     }
+}
+
+@Composable
+private fun BackNavigationButton(onBack: () -> Unit) {
+    IconButton(
+        onClick = onBack, modifier = Modifier
+            .height(30.dp)
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_back_arrow),
+            contentDescription = "back"
+        )
+    }
+}
+
+@Composable
+private fun AppBarIcon(onSearchClick: () -> Unit, onBack: () -> Unit, doneIcon: Boolean) {
+    Row(
+        horizontalArrangement = Arrangement.End, modifier = Modifier
+            .fillMaxWidth()
+            .height(30.dp)
+    ) {
+        if (!doneIcon) {
+            IconButton(onClick = onSearchClick) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_search),
+                    contentDescription = "search"
+                )
+            }
+            IconButton(onClick = {}) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_sort),
+                    contentDescription = "sorting"
+                )
+            }
+            IconButton(onClick = {}) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_menu),
+                    contentDescription = "menu"
+                )
+            }
+        }
+        else {
+            IconButton(onClick = {}) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_done),
+                    contentDescription = "done"
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchField() {
+    val searchValue = rememberSaveable { mutableStateOf("") }
+    TextField(
+        value = searchValue.value,
+        onValueChange = { value -> searchValue.value = value },
+        modifier = Modifier
+            .width(200.dp)
+            .background(Color.Transparent),
+        placeholder = {
+            Text(
+                text = "Search..."
+            )
+        }, colors = TextFieldDefaults.textFieldColors(Color.White)
+    )
 }

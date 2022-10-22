@@ -7,15 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.tw.remainder.components.AppBar
-import com.tw.remainder.databinding.FragmentHomeBinding
+import com.tw.remainder.databinding.FragmentAddNewTaskBinding
+import com.tw.remainder.theme.RemainderTheme
 
-class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+class AddNewTaskFragment : Fragment() {
+    private lateinit var binding : FragmentAddNewTaskBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater)
+        // Inflate the layout for this fragment
+        binding= FragmentAddNewTaskBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -23,12 +26,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
         binding.appBar.setContent {
-            AppBar(
-                title = "Remainder",
-                onSearchClick = { navController.navigate(HomeFragmentDirections.actionHomeFragmentToAllRemainderFragment())})
-        }
-        binding.addTaskButton.setOnClickListener{
-            navController.navigate(HomeFragmentDirections.actionHomeFragmentToAddNewTaskFragment())
+            RemainderTheme {
+                AppBar(title = "Add Task", enableBack = true, doneIcon = true, onBack = {navController.popBackStack()})
+            }
         }
     }
 }
