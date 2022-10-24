@@ -37,7 +37,12 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.taskList.observe(viewLifecycleOwner) { taskList ->
-            Log.e("TaskList", taskList[0].toString())
+            if (taskList.isNotEmpty()) {
+                Log.e("TaskList", taskList.size.toString())
+                taskList.forEach {
+                    Log.e("TaskList", it.toString())
+                }
+            }
         }
 
     }

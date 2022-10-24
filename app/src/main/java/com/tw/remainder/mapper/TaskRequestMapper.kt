@@ -6,6 +6,6 @@ import com.tw.remainder.utils.Mapper
 
 class TaskRequestMapper: Mapper<TaskEntity, Task> {
     override fun from(e: TaskEntity): Task {
-        return Task(name = e.name, id = e.id)
+        return Task(name = e.name)
     }
 }
