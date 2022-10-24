@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/appBar"
@@ -28,15 +27,28 @@
             android:layout_margin="30dp"
             android:backgroundTint="@color/primary"
             android:layout_gravity="end|bottom"/>
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
             android:background="@color/primary"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:padding="10dp"
+            android:foregroundTint="@color/white"
             android:textColorHint="@color/white"
-            android:hint="Enter quick text here"
-            android:layout_gravity="end|bottom" />
+            android:hint="Enter quick text here" />
+            <androidx.constraintlayout.utils.widget.ImageFilterButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:tint="@color/white"
+                android:src="@drawable/ic_done"
+                android:visibility="gone"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 

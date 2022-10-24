@@ -30,5 +30,6 @@ class AddNewTaskFragment : Fragment() {
                 AppBar(title = "Add Task", enableBack = true, doneIcon = true, onBack = {navController.popBackStack()})
             }
         }
+
     }
 }
