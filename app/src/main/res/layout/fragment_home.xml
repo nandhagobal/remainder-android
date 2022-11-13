@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
     <androidx.compose.ui.platform.ComposeView
@@ -46,13 +47,13 @@
             android:foregroundTint="@color/white"
             android:textColorHint="@color/white"
             android:hint="Enter quick text here" />
-            <androidx.constraintlayout.utils.widget.ImageFilterButton
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/primary"
-                android:tint="@color/white"
+                app:tint="@color/white"
                 android:src="@drawable/ic_done"
-                android:visibility="gone"
+                android:visibility="visible"
                 />
         </LinearLayout>
 
