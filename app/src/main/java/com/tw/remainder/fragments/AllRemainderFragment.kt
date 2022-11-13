@@ -35,7 +35,7 @@ class AllRemainderFragment : Fragment() {
 
         binding.appBar.setContent {
             AppBar(
-                title="All Remainder",
+                title = "All Remainder",
                 enableBack = allRemainderViewModel.enableBack,
                 onBack = { navController.popBackStack() },
                 onSearchClick = { allRemainderViewModel.toggleSearch() },
