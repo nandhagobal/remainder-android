@@ -15,6 +15,7 @@ import java.util.*
 
 class HomeViewModel : ViewModel(), KoinComponent {
     private val getTaskUseCase: GetAllTaskUseCase by inject()
+    private val saveTaskUseCase: SaveTaskUseCase by inject()
     private val _taskList = MutableLiveData<List<TaskEntity>>()
     val taskList: LiveData<List<TaskEntity>>
         get() = _taskList
@@ -24,5 +25,11 @@ class HomeViewModel : ViewModel(), KoinComponent {
             val taskListResponse = getTaskUseCase.invoke()
             _taskList.value = taskListResponse
         }
+    }
+
+    fun addQuickTask(text: String) {
+        viewModelScope.launch {
+            saveTaskUseCase.invoke(TaskEntity(title = text, date = "", time = ""))
+        }.invokeOnCompletion { loadTask() }
     }
 }
