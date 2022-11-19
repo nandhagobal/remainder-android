@@ -15,26 +15,14 @@ import java.util.*
 
 class HomeViewModel : ViewModel(), KoinComponent {
     private val getTaskUseCase: GetAllTaskUseCase by inject()
-    private val saveTaskUseCase: SaveTaskUseCase by inject()
     private val _taskList = MutableLiveData<List<TaskEntity>>()
     val taskList: LiveData<List<TaskEntity>>
         get() = _taskList
 
-
-    init {
-        loadTask()
-    }
-
-    private fun loadTask() {
+    fun loadTask() {
         viewModelScope.launch {
             val taskListResponse = getTaskUseCase.invoke()
             _taskList.value = taskListResponse
-        }
-    }
-
-    fun addTask() {
-        viewModelScope.launch {
-            saveTaskUseCase.invoke(TaskEntity(12, "hello", Date(223232323)))
         }
     }
 }

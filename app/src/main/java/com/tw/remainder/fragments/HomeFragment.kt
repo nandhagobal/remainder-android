@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.taskList.observe(viewLifecycleOwner) { taskList ->
-
+            groupAdapter.clear()
             val section = Section()
             taskList.map { task ->
                 section.add(TaskHolder(task))
@@ -57,6 +57,11 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+
+        homeViewModel.loadTask()
     }
 }

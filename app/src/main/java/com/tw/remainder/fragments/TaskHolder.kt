@@ -1,5 +1,6 @@
 package com.tw.remainder.fragments
 
+import android.annotation.SuppressLint
 import android.view.View
 import com.tw.remainder.R
 import com.tw.remainder.databinding.FragmentTaskHolderBinding
@@ -12,9 +13,10 @@ class TaskHolder(val task:TaskEntity):BindableItem<FragmentTaskHolderBinding>() 
         return FragmentTaskHolderBinding.bind(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun bind(binding: FragmentTaskHolderBinding, position: Int) {
-        binding.title.text = task.name
-        binding.date.text = task.date.toString()
+        binding.title.text = task.title
+        binding.date.text = "${task.date} ${task.time}"
     }
 
     override fun getLayout(): Int {

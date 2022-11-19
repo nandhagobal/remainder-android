@@ -21,6 +21,7 @@ fun AppBar(
     enableSearch: Boolean = false,
     onBack: () -> Unit = {},
     onSearchClick: () -> Unit = {},
+    onDone : () -> Unit = {},
     title: String,
     doneIcon: Boolean = false
 ) {
@@ -35,7 +36,7 @@ fun AppBar(
                     color = Color.White,
                     modifier = Modifier.padding(start = 10.dp)
                 )
-            AppBarIcon(onSearchClick, onBack, doneIcon)
+            AppBarIcon(onSearchClick, doneIcon, onDone)
 
         }
     }
@@ -55,7 +56,7 @@ private fun BackNavigationButton(onBack: () -> Unit) {
 }
 
 @Composable
-private fun AppBarIcon(onSearchClick: () -> Unit, onBack: () -> Unit, doneIcon: Boolean) {
+private fun AppBarIcon(onSearchClick: () -> Unit, doneIcon: Boolean, onDone: () -> Unit) {
     Row(
         horizontalArrangement = Arrangement.End, modifier = Modifier
             .fillMaxWidth()
@@ -82,7 +83,7 @@ private fun AppBarIcon(onSearchClick: () -> Unit, onBack: () -> Unit, doneIcon: 
             }
         }
         else {
-            IconButton(onClick = {}) {
+            IconButton(onClick = onDone) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_done),
                     contentDescription = "done"

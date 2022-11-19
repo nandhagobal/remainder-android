@@ -7,6 +7,6 @@ import java.util.*
 
 class TaskResponseMapper:Mapper<Task,TaskEntity> {
     override fun from(e: Task): TaskEntity {
-        return TaskEntity(id = e.id, name = e.name, date = Date(1212213223))
+        return TaskEntity(id = e.id, title = e.name, date = e.date, time = e.time)
     }
 }
