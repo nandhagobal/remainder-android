@@ -54,6 +54,10 @@
                 android:id="@+id/dateEditTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:layout_weight="1"
                 android:ems="10" />
 
@@ -77,6 +81,10 @@
                 android:id="@+id/timeEditTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:layout_weight="1"
                 android:ems="10" />
 

@@ -50,9 +50,14 @@ class AddNewTaskFragment : Fragment() {
                     doneIcon = true,
                     onBack = { navController.popBackStack() },
                     onDone = {
-                        viewModel.addTask()
-                        Toast.makeText(requireContext(),"Task Added",Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()
+                        if(viewModel.checkTitleField()) {
+                            viewModel.addTask()
+                            Toast.makeText(requireContext(), "Task Added", Toast.LENGTH_SHORT)
+                                .show()
+                            navController.popBackStack()
+                        }
+                        else Toast.makeText(requireContext(), "Title should be filled", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 )
             }

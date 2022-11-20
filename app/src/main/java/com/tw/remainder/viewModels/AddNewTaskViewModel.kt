@@ -17,11 +17,11 @@ class AddNewTaskViewModel:ViewModel(), KoinComponent {
          const val POST_MERIDIEN = "PM"
          const val ANTE_MERIDIEN = "AM"
     }
-    private val _title = MutableLiveData("")
+    private val _title = MutableLiveData<String>("")
     val title : LiveData<String>
         get() = _title
 
-    private val _date = MutableLiveData("")
+    private val _date = MutableLiveData<String>("")
     val date : LiveData<String>
     get() = _date
 
@@ -63,5 +63,9 @@ class AddNewTaskViewModel:ViewModel(), KoinComponent {
 
     fun setTitle(title: String) {
         _title.value = title
+    }
+
+    fun checkTitleField(): Boolean {
+        return _title.value?.matches(Regex("[ ]*")) == false
     }
 }
