@@ -44,7 +44,6 @@ class HomeFragment : Fragment() {
             val text = binding.quickTask.text.toString()
             if(text.isNotEmpty()){
                 homeViewModel.addQuickTask(text)
-//                homeViewModel.loadTask()
                 binding.quickTask.text = SpannableStringBuilder("")
             }
         }
