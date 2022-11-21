@@ -17,11 +17,11 @@ class AddNewTaskViewModel:ViewModel(), KoinComponent {
          const val POST_MERIDIEN = "PM"
          const val ANTE_MERIDIEN = "AM"
     }
-    private val _title = MutableLiveData<String>("")
+    private val _title = MutableLiveData("")
     val title : LiveData<String>
         get() = _title
 
-    private val _date = MutableLiveData<String>("")
+    private val _date = MutableLiveData("")
     val date : LiveData<String>
     get() = _date
 

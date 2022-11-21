@@ -6,6 +6,7 @@ import com.tw.remainder.databinding.ActivityMainBinding
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 
 class AppActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -19,5 +20,10 @@ class AppActivity : AppCompatActivity() {
             androidContext(this@AppActivity)
             modules(appModule)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopKoin()
     }
 }

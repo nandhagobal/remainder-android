@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.Color
 fun RemainderTheme(
     content: @Composable () -> Unit
 ) {
-
     MaterialTheme(
         colors = lightColors(primary = Color(0xFF0f9bba), primaryVariant = Color.Transparent),
         content = content
