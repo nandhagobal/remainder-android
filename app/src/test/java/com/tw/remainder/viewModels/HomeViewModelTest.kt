@@ -11,6 +11,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -36,6 +37,7 @@ class HomeViewModelTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
         Dispatchers.setMain(dispatcher)
@@ -45,6 +47,7 @@ class HomeViewModelTest {
         viewModel = HomeViewModel()
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearsDown() {
         Dispatchers.resetMain()
@@ -60,6 +63,17 @@ class HomeViewModelTest {
             listOf(TaskEntity(0, "", "", "")),
             viewModel.taskList.value as List<TaskEntity>
         )
+    }
 
+    @Test
+    fun shouldCallLoadDetailsAfterSavingTheTask() {
+        viewModel.addQuickTask("title")
+        verify { viewModel.loadTask() }
+    }
+
+    @Test
+    fun shouldSaveTaskWhenAddQuickTaskIsCalled() {
+        viewModel.addQuickTask("title")
+        coVerify { saveTaskUseCase.invoke(TaskEntity(title = "title", date = "", time = "")) }
     }
 }
