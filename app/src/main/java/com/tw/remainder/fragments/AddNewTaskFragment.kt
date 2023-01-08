@@ -42,6 +42,11 @@ class AddNewTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
+        binding.viewModel = viewModel
+        val id = arguments?.getString("id")
+        id?.let {
+            viewModel.getTask(id)
+        }
         binding.appBar.setContent {
             RemainderTheme {
                 AppBar(
@@ -51,7 +56,13 @@ class AddNewTaskFragment : Fragment() {
                     onBack = { navController.popBackStack() },
                     onDone = {
                         if(viewModel.checkTitleField()) {
-                            viewModel.addTask()
+                            viewModel.time.value?.let { time ->
+                                viewModel.title.value?.let { title ->
+                                    viewModel.date.value?.let { date ->
+                                        viewModel.addTask(id = viewModel.selectedTaskId,title = title, time = time, date = date)
+                                    }
+                                }
+                            }
                             Toast.makeText(requireContext(), "Task Added", Toast.LENGTH_SHORT)
                                 .show()
                             navController.popBackStack()

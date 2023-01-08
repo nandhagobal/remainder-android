@@ -4,14 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tw.remainder.database.TaskDatabase
 import com.tw.remainder.entities.TaskEntity
 import com.tw.remainder.useCase.GetAllTaskUseCase
 import com.tw.remainder.useCase.SaveTaskUseCase
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.*
 
 class HomeViewModel : ViewModel(), KoinComponent {
     private val getTaskUseCase: GetAllTaskUseCase by inject()
@@ -29,7 +27,7 @@ class HomeViewModel : ViewModel(), KoinComponent {
 
     fun addQuickTask(text: String) {
         viewModelScope.launch {
-            saveTaskUseCase.invoke(TaskEntity(title = text, date = "", time = ""))
+            saveTaskUseCase.addTask(TaskEntity(title = text, date = "", time = ""))
         }.invokeOnCompletion { loadTask() }
     }
 }

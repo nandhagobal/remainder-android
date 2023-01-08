@@ -59,8 +59,8 @@ class AddNewTaskViewModelTest{
 
     @Test
     fun shouldSaveTaskWhenAddTaskIsCalled() {
-        addNewTaskViewModel.addTask()
-        coVerify { saveTaskUseCase.invoke(TaskEntity(title = "", date = "", time = "")) }
+        addNewTaskViewModel.addTask(title = "", date = "", time = "")
+        coVerify { saveTaskUseCase.addTask(TaskEntity(id =0,title = "", date = "", time = "")) }
     }
 
     @Test

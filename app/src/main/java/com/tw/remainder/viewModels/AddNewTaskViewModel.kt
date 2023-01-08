@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.useCase.GetTaskUseCase
 import com.tw.remainder.useCase.SaveTaskUseCase
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class AddNewTaskViewModel:ViewModel(), KoinComponent {
+    private val getTaskUseCase: GetTaskUseCase by inject()
     private val saveTaskUseCase: SaveTaskUseCase by inject()
 
     companion object {
@@ -28,6 +30,8 @@ class AddNewTaskViewModel:ViewModel(), KoinComponent {
     private val _time = MutableLiveData("")
     val time : LiveData<String>
         get() = _time
+
+    var selectedTaskId:Long = 0
 
     fun setDate(day:Int,month:Int,year:Int){
         _date.value = "$day/${month + 1}/$year"
@@ -54,18 +58,30 @@ class AddNewTaskViewModel:ViewModel(), KoinComponent {
         _time.value = ""
     }
 
-    fun addTask() {
+    fun addTask(id: Long = 0, title: String, time: String, date: String) {
         viewModelScope.launch {
-            _title.value?.let { _date.value?.let { it1 -> _time.value?.let { it2 -> TaskEntity(title = it, date = it1, time = it2) } } }
-                ?.let { saveTaskUseCase.invoke(it) }
+            val taskEntity = TaskEntity(id = id, title = title, date = date, time = time)
+            saveTaskUseCase.addTask(taskEntity)
         }
     }
 
     fun setTitle(title: String) {
-        _title.value = title
+        val previousValue = _title.value
+        if(previousValue != title)  {
+            _title.value = title
+        }
     }
 
     fun checkTitleField(): Boolean {
         return _title.value?.matches(Regex("[ ]*")) == false
+    }
+    fun getTask(id: String){
+        viewModelScope.launch {
+            val task = getTaskUseCase.invoke(id)
+            _date.value = task.date
+            _time.value = task.time
+            _title.value = task.title
+            selectedTaskId = id.toLong()
+        }
     }
 }

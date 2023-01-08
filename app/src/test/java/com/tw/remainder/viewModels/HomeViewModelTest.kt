@@ -1,8 +1,6 @@
 package com.tw.remainder.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
-import com.tw.remainder.database.entities.Task
 import com.tw.remainder.entities.TaskEntity
 import com.tw.remainder.useCase.GetAllTaskUseCase
 import com.tw.remainder.useCase.SaveTaskUseCase
@@ -14,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.*
 import org.koin.core.context.loadKoinModules
@@ -74,6 +71,6 @@ class HomeViewModelTest {
     @Test
     fun shouldSaveTaskWhenAddQuickTaskIsCalled() {
         viewModel.addQuickTask("title")
-        coVerify { saveTaskUseCase.invoke(TaskEntity(title = "title", date = "", time = "")) }
+        coVerify { saveTaskUseCase.addTask(TaskEntity(title = "title", date = "", time = "")) }
     }
 }

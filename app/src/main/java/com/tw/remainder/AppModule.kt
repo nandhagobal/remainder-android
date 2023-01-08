@@ -6,6 +6,7 @@ import com.tw.remainder.database.TaskDatabase
 import com.tw.remainder.repositories.TaskRepository
 import com.tw.remainder.repositories.TaskRepositoryImpl
 import com.tw.remainder.useCase.GetAllTaskUseCase
+import com.tw.remainder.useCase.GetTaskUseCase
 import com.tw.remainder.useCase.SaveTaskUseCase
 import com.tw.remainder.viewModels.AddNewTaskViewModel
 import com.tw.remainder.viewModels.AllRemainderViewModel
@@ -20,6 +21,7 @@ val appModule = module {
     factory { SaveTaskUseCase(get()) }
     factory<TaskRepository> { TaskRepositoryImpl(get()) }
     factory { GetAllTaskUseCase(get()) }
+    factory { GetTaskUseCase(get()) }
     viewModel { HomeViewModel() }
     viewModel { AllRemainderViewModel() }
     viewModel { AddNewTaskViewModel() }

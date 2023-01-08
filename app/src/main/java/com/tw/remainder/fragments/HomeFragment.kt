@@ -6,20 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tw.remainder.components.AppBar
 import com.tw.remainder.databinding.FragmentHomeBinding
-import com.tw.remainder.viewModels.AddNewTaskViewModel
+import com.tw.remainder.entities.TaskEntity
 import com.tw.remainder.viewModels.HomeViewModel
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
 import org.koin.android.ext.android.inject
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),TaskHolder.ItemClickListener {
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by inject()
     override fun onCreateView(
@@ -52,7 +52,8 @@ class HomeFragment : Fragment() {
             groupAdapter.clear()
             val section = Section()
             taskList.map { task ->
-                section.add(TaskHolder(task))
+                Log.e("Task",task.toString())
+                section.add(TaskHolder(task, this))
             }
             groupAdapter.add(section)
             if (taskList.isNotEmpty()) {
@@ -81,5 +82,10 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         homeViewModel.loadTask()
+    }
+
+    override fun onTaskClicked(task: TaskEntity) {
+        val navController = findNavController()
+        navController.navigate("remainder://update/task/${task.id}".toUri())
     }
 }

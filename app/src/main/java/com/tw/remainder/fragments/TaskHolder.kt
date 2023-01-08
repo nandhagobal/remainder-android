@@ -7,7 +7,7 @@ import com.tw.remainder.databinding.FragmentTaskHolderBinding
 import com.tw.remainder.entities.TaskEntity
 import com.xwray.groupie.viewbinding.BindableItem
 
-class TaskHolder(val task:TaskEntity):BindableItem<FragmentTaskHolderBinding>() {
+class TaskHolder(val task: TaskEntity, private val itemClickListener: ItemClickListener):BindableItem<FragmentTaskHolderBinding>() {
 
     override fun initializeViewBinding(view: View): FragmentTaskHolderBinding {
         return FragmentTaskHolderBinding.bind(view)
@@ -15,6 +15,8 @@ class TaskHolder(val task:TaskEntity):BindableItem<FragmentTaskHolderBinding>() 
 
     @SuppressLint("SetTextI18n")
     override fun bind(binding: FragmentTaskHolderBinding, position: Int) {
+        binding.task = task
+        binding.itemListener = itemClickListener
         binding.title.text = task.title
         binding.date.text = "${task.date} ${task.time}"
     }
@@ -23,5 +25,8 @@ class TaskHolder(val task:TaskEntity):BindableItem<FragmentTaskHolderBinding>() 
         return R.layout.fragment_task_holder
     }
 
+    interface ItemClickListener{
+        fun onTaskClicked(task: TaskEntity)
+    }
 
 }

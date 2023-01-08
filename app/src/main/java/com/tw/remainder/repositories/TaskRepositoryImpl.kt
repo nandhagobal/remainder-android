@@ -21,4 +21,10 @@ class TaskRepositoryImpl(private val taskDAO: TaskDAO) : TaskRepository {
             taskDAO.addTask(TaskRequestMapper().from(task))
         }
     }
+
+    override suspend fun getTask(id: String): TaskEntity {
+        return withContext(Dispatchers.IO){
+            TaskResponseMapper().from(taskDAO.getTask(id))
+        }
+    }
 }
