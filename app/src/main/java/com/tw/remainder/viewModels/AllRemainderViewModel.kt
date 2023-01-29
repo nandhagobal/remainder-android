@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.entities.TaskStatus
 import com.tw.remainder.useCase.GetAllTaskUseCase
+import com.tw.remainder.useCase.SaveTaskUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,6 +16,7 @@ import org.koin.core.component.inject
 
 class AllRemainderViewModel : ViewModel(),KoinComponent {
     private val getTaskUseCase: GetAllTaskUseCase by inject()
+    private val saveTaskUseCase: SaveTaskUseCase by inject()
     val enableBack = true
     val searchEnable= MutableLiveData(false)
     private val _searchText = MutableStateFlow("")
@@ -45,6 +48,16 @@ class AllRemainderViewModel : ViewModel(),KoinComponent {
             it.title.matches(Regex("\\w*${searchText.value}\\w*"))
         }
         _filteredRemainderList.value = filteredList
+    }
+
+    fun changeStatus(task: TaskEntity) {
+        viewModelScope.launch {
+
+                saveTaskUseCase.addTask(task = task.copy(status = when(task.status) {
+                    TaskStatus.COMPLETED -> TaskStatus.IN_PROGRESS
+                    TaskStatus.IN_PROGRESS -> TaskStatus.COMPLETED
+                }))
+        }
     }
 
 }

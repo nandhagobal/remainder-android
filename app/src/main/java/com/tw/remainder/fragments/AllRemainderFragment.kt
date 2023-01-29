@@ -89,5 +89,9 @@ class AllRemainderFragment : Fragment(),TaskHolder.ItemClickListener {
     override fun onTaskClicked(task: TaskEntity) {
         TODO("Not yet implemented")
     }
+
+    override fun onCheckBoxClicked(task: TaskEntity) {
+        allRemainderViewModel.changeStatus(task)
+    }
 }
 

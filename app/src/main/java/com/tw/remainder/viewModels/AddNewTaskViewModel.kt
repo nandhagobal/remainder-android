@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.entities.TaskStatus
 import com.tw.remainder.useCase.GetTaskUseCase
 import com.tw.remainder.useCase.SaveTaskUseCase
 import kotlinx.coroutines.launch
@@ -60,7 +61,7 @@ class AddNewTaskViewModel:ViewModel(), KoinComponent {
 
     fun addTask(id: Long = 0, title: String, time: String, date: String) {
         viewModelScope.launch {
-            val taskEntity = TaskEntity(id = id, title = title, date = date, time = time)
+            val taskEntity = TaskEntity(id = id, title = title, date = date, time = time, status = TaskStatus.IN_PROGRESS)
             saveTaskUseCase.addTask(taskEntity)
         }
     }

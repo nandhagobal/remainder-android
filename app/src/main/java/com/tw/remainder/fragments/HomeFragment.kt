@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tw.remainder.components.AppBar
 import com.tw.remainder.databinding.FragmentHomeBinding
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.entities.TaskStatus
 import com.tw.remainder.viewModels.HomeViewModel
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
@@ -52,16 +53,18 @@ class HomeFragment : Fragment(),TaskHolder.ItemClickListener {
             groupAdapter.clear()
             val section = Section()
             taskList.map { task ->
-                Log.e("Task",task.toString())
-                section.add(TaskHolder(task, this))
-            }
-            groupAdapter.add(section)
-            if (taskList.isNotEmpty()) {
-                Log.e("TaskList", taskList.size.toString())
-                taskList.forEach {
-                    Log.e("TaskList", it.toString())
+                if (task.status == TaskStatus.IN_PROGRESS) {
+                    Log.e("Task", task.toString())
+                    section.add(TaskHolder(task, this))
                 }
             }
+                groupAdapter.add(section)
+                if (taskList.isNotEmpty()) {
+                    Log.e("TaskList", taskList.size.toString())
+                    taskList.forEach {
+                        Log.e("TaskList", it.toString())
+                    }
+                }
         }
     }
 
@@ -87,5 +90,9 @@ class HomeFragment : Fragment(),TaskHolder.ItemClickListener {
     override fun onTaskClicked(task: TaskEntity) {
         val navController = findNavController()
         navController.navigate("remainder://update/task/${task.id}".toUri())
+    }
+
+    override fun onCheckBoxClicked(task: TaskEntity) {
+        homeViewModel.changeStatus(task)
     }
 }

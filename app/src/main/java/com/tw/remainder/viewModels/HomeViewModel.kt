@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.entities.TaskStatus
 import com.tw.remainder.useCase.GetAllTaskUseCase
 import com.tw.remainder.useCase.SaveTaskUseCase
 import kotlinx.coroutines.launch
@@ -27,7 +28,13 @@ class HomeViewModel : ViewModel(), KoinComponent {
 
     fun addQuickTask(text: String) {
         viewModelScope.launch {
-            saveTaskUseCase.addTask(TaskEntity(title = text, date = "", time = ""))
+            saveTaskUseCase.addTask(TaskEntity(title = text, date = "", time = "", status = TaskStatus.IN_PROGRESS))
+        }.invokeOnCompletion { loadTask() }
+    }
+
+    fun changeStatus(task: TaskEntity) {
+        viewModelScope.launch {
+            saveTaskUseCase.addTask(task.copy(status = TaskStatus.COMPLETED))
         }.invokeOnCompletion { loadTask() }
     }
 }

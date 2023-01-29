@@ -26,6 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="5dp"
         android:layout_width="30dp"
+        android:onClick="@{() -> itemListener.onCheckBoxClicked(task)}"
         android:layout_height="30dp"/>
 
     <TextView

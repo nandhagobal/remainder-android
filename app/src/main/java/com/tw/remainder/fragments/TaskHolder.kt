@@ -5,6 +5,7 @@ import android.view.View
 import com.tw.remainder.R
 import com.tw.remainder.databinding.FragmentTaskHolderBinding
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.entities.TaskStatus
 import com.xwray.groupie.viewbinding.BindableItem
 
 class TaskHolder(val task: TaskEntity, private val itemClickListener: ItemClickListener):BindableItem<FragmentTaskHolderBinding>() {
@@ -19,6 +20,7 @@ class TaskHolder(val task: TaskEntity, private val itemClickListener: ItemClickL
         binding.itemListener = itemClickListener
         binding.title.text = task.title
         binding.date.text = "${task.date} ${task.time}"
+        binding.checkbox.isChecked = task.status == TaskStatus.COMPLETED
     }
 
     override fun getLayout(): Int {
@@ -27,6 +29,7 @@ class TaskHolder(val task: TaskEntity, private val itemClickListener: ItemClickL
 
     interface ItemClickListener{
         fun onTaskClicked(task: TaskEntity)
+        fun onCheckBoxClicked(task: TaskEntity)
     }
 
 }
