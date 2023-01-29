@@ -4,8 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -22,12 +21,14 @@ fun AppBar(
     onSearchClick: () -> Unit = {},
     onDone : () -> Unit = {},
     title: String,
-    doneIcon: Boolean = false
+    doneIcon: Boolean = false,
+    searchText: MutableState<String>? = null,
+    onSearchChange: (String)->Unit = {}
 ) {
     RemainderTheme {
         TopAppBar() {
             if (enableBack) BackNavigationButton(onBack)
-            if (enableSearch) SearchField()
+            if (enableSearch) SearchField(searchText,onSearchChange)
             else
                 Text(
                     text = title,
@@ -93,11 +94,11 @@ private fun AppBarIcon(onSearchClick: () -> Unit, doneIcon: Boolean, onDone: () 
 }
 
 @Composable
-private fun SearchField() {
-    val searchValue = rememberSaveable { mutableStateOf("") }
+private fun SearchField(searchValue: MutableState<String>?,onSearchChange: (String)->Unit) {
+//    val searchValue = rememberSaveable { mutableStateOf("") }
     TextField(
-        value = searchValue.value,
-        onValueChange = { value -> searchValue.value = value },
+        value = searchValue?.value ?: "",
+        onValueChange = { value -> onSearchChange(value) },
         modifier = Modifier
             .width(200.dp)
             .background(Color.Transparent),
