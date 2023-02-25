@@ -1,7 +1,7 @@
 pipeline{
     agent { label 'android' }
     stages{
-        stages("build"){
+        stage("build"){
             steps{
                 echo("building")
             }
