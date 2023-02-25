@@ -2,6 +2,7 @@ package com.tw.remainder.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.entities.TaskStatus
 import com.tw.remainder.useCase.GetAllTaskUseCase
 import com.tw.remainder.useCase.SaveTaskUseCase
 import io.mockk.coEvery
@@ -54,10 +55,10 @@ class HomeViewModelTest {
 
     @Test
     fun shouldUpdateListOfTaskWhenLoadTaskIsCalled() {
-        coEvery { getTaskUseCase.invoke() } returns listOf(TaskEntity(0, "", "", ""))
+        coEvery { getTaskUseCase.invoke() } returns listOf(TaskEntity(0, "", "", "",TaskStatus.IN_PROGRESS))
         viewModel.loadTask()
         Assert.assertEquals(
-            listOf(TaskEntity(0, "", "", "")),
+            listOf(TaskEntity(0, "", "", "",TaskStatus.IN_PROGRESS)),
             viewModel.taskList.value as List<TaskEntity>
         )
     }
@@ -71,6 +72,6 @@ class HomeViewModelTest {
     @Test
     fun shouldSaveTaskWhenAddQuickTaskIsCalled() {
         viewModel.addQuickTask("title")
-        coVerify { saveTaskUseCase.addTask(TaskEntity(title = "title", date = "", time = "")) }
+        coVerify { saveTaskUseCase.addTask(TaskEntity(title = "title", date = "", time = "", status = TaskStatus.IN_PROGRESS)) }
     }
 }

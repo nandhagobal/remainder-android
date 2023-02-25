@@ -2,6 +2,7 @@ package com.tw.remainder.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.tw.remainder.entities.TaskEntity
+import com.tw.remainder.entities.TaskStatus
 import com.tw.remainder.useCase.SaveTaskUseCase
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -60,7 +61,7 @@ class AddNewTaskViewModelTest{
     @Test
     fun shouldSaveTaskWhenAddTaskIsCalled() {
         addNewTaskViewModel.addTask(title = "", date = "", time = "")
-        coVerify { saveTaskUseCase.addTask(TaskEntity(id =0,title = "", date = "", time = "")) }
+        coVerify { saveTaskUseCase.addTask(TaskEntity(id =0,title = "", date = "", time = "", status = TaskStatus.IN_PROGRESS)) }
     }
 
     @Test
