@@ -1,0 +1,10 @@
+pipeline{
+    agent { label 'android' }
+    stages{
+        stages("build"){
+            steps{
+                echo("building")
+            }
+        }
+    }
+}
